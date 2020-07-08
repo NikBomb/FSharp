@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "FLSFya1JuYLqaU+euarvDzxp3dDxHTB0O4imXLwjQCkrTqPncu5q0cuI0Y3mLTO75qkUBxy90SdkVBbU2qX69Q==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Nico\\Desktop\\f#\\PollingConsumer\\PollingConsumer.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Nico\\.nuget\\packages\\fsharp.core\\4.7.1\\fsharp.core.4.7.1.nupkg.sha512"
+  ],
+  "logs": []
+}
