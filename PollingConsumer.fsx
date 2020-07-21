@@ -143,5 +143,5 @@ let transition shouldPoll poll shouldIdle idle state =
 // Implementation details 
 
 // In this case the added arguments are values rather than functions -> This is not a higher order function 
-let shouldIdle timeDuration stopBefore (NoMessageState nm) = 
-    nm.Stopped + timeDuration < stopBefore
+let shouldIdle timeDuration stopBefore (nm : NoMessageData) = 
+ nm.Stopped + timeDuration < stopBefore
