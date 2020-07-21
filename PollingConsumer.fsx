@@ -42,8 +42,6 @@ module Clocks =
 
 // Module 2
 
-type todo = unit 
-let todo () = ()
 
 //Auxiliary Types 
 type MessageHandler = unit -> Timed<unit>
@@ -116,3 +114,17 @@ let transitionFromReceived (rm : ReceivedMessageData) =
  // Injection of arguments (Closely related to dependency Injection)
  // Contemplation (function signatures)
  // To do List 
+
+
+ // We will use the  type system as an implicit todo list 
+
+ // State Machine
+
+ // Recursive Function that takes a trans function to transition from one state to the next
+ // and recursively runs until it encounters the stopped state
+
+let rec run trans state = 
+  let nextState = trans state
+  match nextState with 
+  | StoppedState -> StoppedState
+  | _ -> run trans nextState
