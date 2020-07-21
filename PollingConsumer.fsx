@@ -128,3 +128,14 @@ let rec run trans state =
   match nextState with 
   | StoppedState -> StoppedState
   | _ -> run trans nextState
+
+// We cannot call the run function since we still need the trans function that takes a Polling Consumer and returns a Polling Consumer 
+// This transition function makes it clear that we will nedd to implement 4 functions 
+
+
+let transition shouldPoll poll shouldIdle idle state = 
+  match state with 
+  | ReadyState r -> transitionFromready shouldPoll poll r 
+  | ReceivedMessageState rm -> transitionFromReceived rm
+  | NoMessageState nm -> transitionFromNoMessage shouldIdle idle nm
+  | StoppedState -> StoppedState
