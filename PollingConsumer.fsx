@@ -145,3 +145,25 @@ let transition shouldPoll poll shouldIdle idle state =
 // In this case the added arguments are values rather than functions -> This is not a higher order function 
 let shouldIdle timeDuration stopBefore (nm : NoMessageData) = 
  nm.Stopped + timeDuration < stopBefore
+
+ // Create idle function 
+ // Idle simply takes a duration and sleeps. It uses the machine clock to understand when it started and stopped
+
+let idle (idleDuration : TimeSpan) () =
+    let s () = 
+        idleDuration.TotalMilliseconds
+        |> int
+        |> Async.Sleep 
+        |> Async.RunSynchronously
+    printfn "Slepping"
+    Timed.timeOn Clocks.machineClock s ()
+
+// Fake idle for unit Testing, This does not block
+
+let fakeIdle duration () =
+    let now = DateTimeOffset.Now
+    {
+        Started = now
+        Stopped = now + duration
+        Result = ()
+    }
