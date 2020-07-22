@@ -167,3 +167,13 @@ let fakeIdle duration () =
         Stopped = now + duration
         Result = ()
     }
+
+
+// Implement shouldPoll: takes a Readydata as input and returns a bool
+// This function is a high order function that takes as input the way in which it should compute the statistics for the expected handle duration
+
+let shouldPoll calculateExpectedDuration stopBefore (rd : ReadyData) = 
+    let durations = rd.Result 
+    let expectedHandleDuration  = calculateExpectedDuration durations 
+    rd.Stopped + expectedHandleDuration < stopBefore
+
