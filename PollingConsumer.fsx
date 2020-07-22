@@ -190,3 +190,15 @@ let poll pollForMessage handle clock () =
             Some (h : MessageHandler)
         | None -> None 
     Timed.timeOn clock p ()
+
+// Statitistics average 
+
+let calculateAverage (durations : TimeSpan list ) = 
+    if durations.IsEmpty
+    then None
+    else
+        durations 
+        |> List.averageBy(fun x -> float x.Ticks)
+        |> int64 
+        |> TimeSpan.FromTicks
+        |> Some
