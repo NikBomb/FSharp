@@ -177,3 +177,16 @@ let shouldPoll calculateExpectedDuration stopBefore (rd : ReadyData) =
     let expectedHandleDuration  = calculateExpectedDuration durations 
     rd.Stopped + expectedHandleDuration < stopBefore
 
+// Implement poll function: It actually does more than polling 
+// It polls
+// Creates a message handler 
+// Times
+
+let poll pollForMessage handle clock () = 
+    let p () = 
+        match pollForMessage () with 
+        | Some msg ->
+            let h() = Timed.timeOn clock ( handle >> ignore)  msg 
+            Some (h : MessageHandler)
+        | None -> None 
+    Timed.timeOn clock p ()
