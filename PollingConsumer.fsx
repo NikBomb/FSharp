@@ -202,3 +202,22 @@ let calculateAverage (durations : TimeSpan list ) =
         |> int64 
         |> TimeSpan.FromTicks
         |> Some
+
+// Compute standard deviation and Standard Dev
+let calculateAverageAndStandardDeviation durations = 
+ let stdDev (avg : TimeSpan) =
+    durations 
+    |> List.averageBy(fun x -> ((x - avg).Ticks |> float) ** 2.  )
+    |> sqrt
+    |> int64
+    |> TimeSpan.FromTicks
+ let average = durations |> calculateAverage 
+ match average with
+ | Some -> Some(average, stdDev average.Value) 
+ | _ -> None
+ //calculateAverage(durations) |> Option.map(fun avg -> avg, stdDev avg)
+
+
+
+    
+ 
