@@ -222,5 +222,22 @@ let calculateExpectedDuration estimatedDuration durations =
   | Some (avg, std) -> float avg.Ticks +  3.* float std.Ticks |> int64 |> TimeSpan.FromTicks
 
 
+//Simulate poll
     
- 
+let simulatedPollForMessage (r : Random) () = 
+ printf "Polling"
+ r.Next(100, 1000) 
+ |> Async.Sleep
+ |> Async.RunSynchronously
+
+ if r.Next(0,100) > 50 
+ then None
+ else Some ()
+
+ // Simulate Handling 
+
+let simulateHandleMessage (r : Random) () = 
+ printfn "Handling"
+ r.Next(100, 1000) 
+ |> Async.Sleep
+ |> Async.RunSynchronously
