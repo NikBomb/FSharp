@@ -211,12 +211,15 @@ let calculateAverageAndStandardDeviation durations =
     |> sqrt
     |> int64
     |> TimeSpan.FromTicks
- let average = durations |> calculateAverage 
- match average with
- | Some -> Some(average, stdDev average.Value) 
+ match durations |> calculateAverage  with
+ | Some average -> Some(average, stdDev average) 
  | _ -> None
  //calculateAverage(durations) |> Option.map(fun avg -> avg, stdDev avg)
 
+let calculateExpectedDuration estimatedDuration durations =
+ match durations |> calculateAverageAndStandardDeviation with 
+  | None -> estimatedDuration
+  | Some (avg, std) -> float avg.Ticks +  3.* float std.Ticks |> int64 |> TimeSpan.FromTicks
 
 
     
