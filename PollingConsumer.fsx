@@ -241,3 +241,23 @@ let simulateHandleMessage (r : Random) () =
  r.Next(100, 1000) 
  |> Async.Sleep
  |> Async.RunSynchronously
+
+
+ //Configuration 
+let now' = DateTimeOffset.Now
+let stopBefore' = now' + TimeSpan.FromSeconds 20.
+let estimatedDuration' = TimeSpan.FromSeconds 2.
+let idleDuration' = TimeSpan.FromSeconds 5.
+
+ // composition 
+
+let shouldPoll' = shouldPoll (calculateExpectedDuration estimatedDuration') stopBefore'
+let r' = Random()
+let handle' = simulateHandleMessage r'
+let simulatedPollForMessage' = simulatedPollForMessage r'
+let poll' = poll simulatedPollForMessage' handle' Clocks.machineClock 
+let shouldIdle' = shouldIdle idleDuration' stopBefore'
+let idle' = idle idleDuration'
+let transition' = transition shouldPoll' poll' shouldIdle' idle' 
+let run' = run transition' 
+let result' = run'(ReadyState([] |> Timed.capture Clocks.machineClock)) 
