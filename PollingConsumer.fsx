@@ -225,7 +225,7 @@ let calculateExpectedDuration estimatedDuration durations =
 //Simulate poll
     
 let simulatedPollForMessage (r : Random) () = 
- printf "Polling"
+ printfn "Polling"
  r.Next(100, 1000) 
  |> Async.Sleep
  |> Async.RunSynchronously
